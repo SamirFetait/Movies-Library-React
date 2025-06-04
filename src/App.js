@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Nav from "./Pages/Nav.js";
+import cardsData from "./data/cards";
+import Cards from "./Pages/Home.js";
+import EditMovie from "./Pages/EditMovie";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [cards, setCards] = useState(cardsData);
+
+	return (
+		<>
+			<Router>
+				<Nav />
+				<Routes>
+					<Route
+						path="/"
+						element={<Cards cards={cards} setCards={setCards} />}
+					/>
+					<Route
+						path="/EditMovie/:id"
+						element={<EditMovie cards={cards} setCards={setCards} />}
+					/>
+				</Routes>
+			</Router>
+		</>
+	);
 }
 
 export default App;
